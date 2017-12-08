@@ -73,8 +73,7 @@
       subtree-weights (map (partial tower-weight input) (:children smallest-subtree))
       odd-weight-out (some (fn [[weight freq]] (if (= 1 freq) weight))
                            (frequencies subtree-weights))
-      odd-one-out (first (filter #(= odd-weight-out (tower-weight input %)) (:children smallest-subtree)))
-      ]
+      odd-one-out (first (filter #(= odd-weight-out (tower-weight input %)) (:children smallest-subtree)))]
   (+ (:weight (input odd-one-out))
      (- (first (remove #{odd-weight-out} subtree-weights))
         odd-weight-out)))
