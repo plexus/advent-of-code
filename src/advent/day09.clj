@@ -69,7 +69,7 @@
 
 (def parse
   (insta/parser
-   " Group = <'{'> (Group | Char | Garbage)* <'}'>
+   "Group = <'{'> (Group | Char | Garbage)* <'}'>
     Escaped = '!' #\".\"
     <Char> = <#\"[^<\\{\\}]\">
     <Garbage> = <'<'> <(Escaped | #\"[^!>]\")*> <'>'> " ))
