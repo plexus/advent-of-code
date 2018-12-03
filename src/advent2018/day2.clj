@@ -11,14 +11,16 @@
 (def only-two (filter (fn [s] (s 2))))
 (def only-three (filter (fn [s] (s 3))))
 
-(transduce (comp char-counts
-                 (x/multiplex [(comp only-two x/count)
-                               (comp only-three x/count)]))
-           (fn
-             ([] [])
-             ([[x y]] (* x y))
-             ([x y] (conj x y)))
-           input)
+(time
+ (transduce (comp char-counts
+                  (x/multiplex [(comp only-two x/count)
+                                (comp only-three x/count)]))
+            (fn
+              ([] [])
+              ([[x y]] (* x y))
+              ([x y] (conj x y)))
+            input))
+"Elapsed time: 5.859766 msecs"
 ;;=> 4712
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,14 +32,16 @@
                                         (subs id (inc i))))
                                  (range (count id)))))))
 
-(transduce
- box-id-set
- (fn
-   ([] #{})
-   ([x] x)
-   ([acc ids]
-    (if-let [id (some acc ids)]
-      (reduced id)
-      (into acc ids))))
- input)
+(time
+ (transduce
+  box-id-set
+  (fn
+    ([] #{})
+    ([x] x)
+    ([acc ids]
+     (if-let [id (some acc ids)]
+       (reduced id)
+       (into acc ids))))
+  input))
+"Elapsed time: 4.787275 msecs"
 ;;=> "lufjygedpvfbhftxiwnaorzmq"

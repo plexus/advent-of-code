@@ -22,25 +22,29 @@
                                 y (range y (+ y h))]
                             (vary-meta [x y] assoc :claim/id id)))))
 
-(x/some (comp parse-line
-              claim->coords
-              cat
-              (x/by-key identity x/count)
-              (filter (fn [[_ n]] (> n 1)))
-              x/count)
-        input)
+(time
+ (x/some (comp parse-line
+               claim->coords
+               cat
+               (x/by-key identity x/count)
+               (filter (fn [[_ n]] (> n 1)))
+               x/count)
+         input))
+"Elapsed time: 956.737149 msecs"
 ;;=> 116489
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; part 2
 
-(set/difference (into #{} (comp parse-line (map :id)) input)
-                (into #{} (comp parse-line
-                                claim->coords
-                                cat
-                                (x/by-key identity (x/into []))
-                                (filter (fn [[_ n]] (> (count n) 1)))
-                                (map (fn [[_ coords]] (map #(:claim/id (meta %)) coords)))
-                                cat)
-                      input))
+(time
+ (set/difference (into #{} (comp parse-line (map :id)) input)
+                 (into #{} (comp parse-line
+                                 claim->coords
+                                 cat
+                                 (x/by-key identity (x/into []))
+                                 (filter (fn [[_ n]] (> (count n) 1)))
+                                 (map (fn [[_ coords]] (map #(:claim/id (meta %)) coords)))
+                                 cat)
+                       input)))
+"Elapsed time: 1456.225343 msecs"
 ;;=> #{1260}
