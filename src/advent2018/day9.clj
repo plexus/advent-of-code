@@ -89,7 +89,7 @@
 (defn play-rounds [game rounds]
   (nth (iterate play-marble game) rounds))
 
-(defn max-scoure [player-count marble-count]
+(defn max-score [player-count marble-count]
   (apply max (:players (play-rounds (init-game player-count) marble-count))))
 
 
@@ -98,5 +98,18 @@
   (max-score 10 1618)
   (max-score 13 7999)
 
-  (max-score 493 71863)
-  (max-score 493 7186300))
+  ;; part 1
+
+  (time
+   (max-score 493 71863))
+  "Elapsed time: 107.725309 msecs"
+  367802
+
+  ;; part 2
+
+  (time
+   (max-score 493 7186300))
+  "Elapsed time: 16634.470548 msecs"
+  2996043280
+
+  )
