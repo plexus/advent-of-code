@@ -1,0 +1,2 @@
+{:paths ["src" "resources"]
+ :deps {lambdaisland/trikl {:local/root "/home/arne/github/lambdaisland/trikl"}}}
